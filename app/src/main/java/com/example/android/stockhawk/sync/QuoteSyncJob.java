@@ -117,7 +117,7 @@ public final class QuoteSyncJob {
                                 Contract.Quote.URI,
                                 quoteCVs.toArray(new ContentValues[quoteCVs.size()]));
 
-                Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED);
+                Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED).setPackage(context.getPackageName());;
                 context.sendBroadcast(dataUpdatedIntent);
 
         } catch (IOException exception) {

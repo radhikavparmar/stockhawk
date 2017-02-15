@@ -38,4 +38,5 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="stock_widget">stock widget logo</string>
+    <string name="title_widget">Qoutes for Today</string>
 </resources>
