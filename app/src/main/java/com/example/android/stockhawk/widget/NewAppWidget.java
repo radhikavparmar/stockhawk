@@ -14,7 +14,6 @@ import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
 
 import com.example.android.stockhawk.R;
-import com.example.android.stockhawk.sync.QuoteSyncJob;
 import com.example.android.stockhawk.ui.MainActivity;
 import com.example.android.stockhawk.ui.StockInDetail;
 
@@ -95,7 +94,7 @@ public class NewAppWidget extends AppWidgetProvider {
     @Override
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         super.onReceive(context, intent);
-        if (QuoteSyncJob.ACTION_DATA_UPDATED.equals(intent.getAction())) {
+        if (MainActivity.ACTION_DATA_UPDATED_.equals(intent.getAction())) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
                     new ComponentName(context, getClass()));

@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
         SwipeRefreshLayout.OnRefreshListener,
         StockAdapter.StockAdapterOnClickHandler {
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.error)
     TextView error;
     private StockAdapter adapter;
+    public static final String ACTION_DATA_UPDATED_ = "com.example.android.stockhawk.app.ACTION_DATA_UPDATED_";
 
     @Override
     public void onClick(String symbol) {
@@ -82,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 String symbol = adapter.getSymbolAtPosition(viewHolder.getAdapterPosition());
                 PrefUtils.removeStock(MainActivity.this, symbol);
                 getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
+                Context context = getApplicationContext();
+                Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED_).setPackage(context.getPackageName());;
+                context.sendBroadcast(dataUpdatedIntent);
             }
         }).attachToRecyclerView(stockRecyclerView);
 
@@ -131,8 +136,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
 
+
             PrefUtils.addStock(this, symbol);
             QuoteSyncJob.syncImmediately(this);
+            Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED_).setPackage(this.getPackageName());
+            this.sendBroadcast(dataUpdatedIntent);
         }
     }
 

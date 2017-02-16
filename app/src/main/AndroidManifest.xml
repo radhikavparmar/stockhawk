@@ -44,7 +44,7 @@
             android:enabled="@bool/widget_detail_enabled">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.example.android.stockhawk.app.ACTION_DATA_UPDATED"/>
+                <action android:name="com.example.android.stockhawk.app.ACTION_DATA_UPDATED_"/>
             </intent-filter>
 
             <meta-data
