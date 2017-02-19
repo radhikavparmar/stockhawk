@@ -1,42 +1,60 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+
+    <!-- It is name of the app to identify the app. It is used in the toolbar and manifest file-->
     <string name="app_name">Stock Hawk</string>
 
+    <!-- Key name for storing stocks initilized-->
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
+    <!--key name for storing stock -->
     <string name="pref_stocks_key">stocks</string>
 
-
+    <!-- Key name for storing display mode -->
     <string name="pref_display_mode_key">displayMode</string>
+
+    <!-- Default value for display mode-->
     <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
 
+    <!-- Key name for storing absolute in display mode-->
     <string name="pref_display_mode_absolute_key">absolute</string>
+
+    <!-- Key name for storing percentage in display mode-->
     <string name="pref_display_mode_percentage_key">percentage</string>
 
-    <string name="default_stocks_yahoo">YHOO</string>
-    <string name="default_stocks_apple">AAPL</string>
-    <string name="default_stocks_microsoft">MSFT</string>
-    <string name="default_stocks_facebook">FB</string>
+    <!-- Symbol for default stocks in the app-->
+    <string name="default_stocks_yahoo" translatable="false">YHOO</string>
+    <string name="default_stocks_apple" translatable="false">AAPL</string>
+    <string name="default_stocks_microsoft" translatable="false">MSFT</string>
+    <string name="default_stocks_facebook" translatable="false">FB</string>
 
-
+    <!--  used as attribute for menu item -->
     <string name="action_change_units">@string/pref_display_mode_key</string>
 
-
+    <!--  Used in dialog box for adding new stock-->
     <string name="dialog_title">Add Stock</string>
-    <string name="dialog_hint">Symbol (e.g. GOOG)</string>
+    <string name="dialog_hint" translatable="false">Symbol (e.g. GOOG)</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_add">Add</string>
+    <string name="volume">Volume: </string>
+    <string name="high">High: </string>
+    <string name="weekly_avg_vol">Average volume: </string>
+    <string name="low">Low: </string>
+    <string name="open">Open: </string>
+    <string name="prev_close">Previous close:</string>
 
+    <!--  Strings for different network statuses-->
     <string name="error_no_network">No network connectivity! Will load stock cursor when the network is available.</string>
     <string name="error_no_stocks">No stocks added! Hit the floating action button to add one.</string>
-
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
 
+    <!-- String for content description for floating acting button-->
     <string name="contentfab">Add stock</string>
-    <string name="week_button_name">weekly</string>
-    <string name="lets_see">lets seeee</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
+
+    <!-- Strings for widget-->
     <string name="stock_widget">stock widget logo</string>
     <string name="title_widget">Qoutes for Today</string>
+    <string name="error_message">Error message</string>
+
+
 </resources>

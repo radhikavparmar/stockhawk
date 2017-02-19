@@ -9,7 +9,6 @@
     android:paddingRight="16dp"
     android:paddingEnd="16dp">
     <TextView
-
         android:textStyle="bold"
         android:id="@+id/companyname_in_detailview"
         android:layout_width="wrap_content"
@@ -80,11 +79,10 @@
         <TableRow>
 
             <TextView
-
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/prev_close"
-                android:textStyle="bold"/>
+                android:text="@string/prev_close" />
 
             <TextView
                 android:layout_width="0dp"

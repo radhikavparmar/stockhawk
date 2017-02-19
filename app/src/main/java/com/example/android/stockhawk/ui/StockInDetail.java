@@ -9,16 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.android.stockhawk.R;
+import com.example.android.stockhawk.data.Contract;
+import com.example.android.stockhawk.data.DbHelper;
+import com.example.android.stockhawk.data.PrefUtils;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.example.android.stockhawk.R;
-import com.example.android.stockhawk.data.Contract;
-import com.example.android.stockhawk.data.DbHelper;
-import com.example.android.stockhawk.data.PrefUtils;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -40,6 +41,7 @@ import timber.log.Timber;
 public class StockInDetail extends AppCompatActivity {
     private static final String SYMBOL_EXTRA = "symbol";
     private static final int LOADER_IDENTIFIER = 22;
+    private static final String mYearly = "Yearly data";
     @BindView(R.id.stock_title_in_detailview)
     TextView mStockTitle;
     @BindView(R.id.price_in_detailview)
@@ -50,9 +52,19 @@ public class StockInDetail extends AppCompatActivity {
     TextView mdateTextView;
     @BindView(R.id.companyname_in_detailview)
     TextView mCompanyNameTextView;
-    @BindView(R.id.volume_in_detailview)
+    @BindView(R.id.vol_in_detailview)
     TextView mVolumeTextView;
-//    @BindView(R.id.weekly_button)
+    @BindView(R.id.avg_vol_in_detailview)
+    TextView mAvgVolumeTextview;
+    @BindView(R.id.high_in_detailview)
+    TextView mHighTextview;
+    @BindView(R.id.low_in_detailview)
+    TextView mLowTextview;
+    @BindView(R.id.open_in_detailview)
+    TextView mOpenTextview;
+    @BindView(R.id.prev_close_in_detailview)
+    TextView mPrevCloseTextview;
+    //    @BindView(R.id.weekly_button)
 //    Button mWeeklyButton;
     @BindView(R.id.stock_chart)
     LineChart mLineChart;
@@ -89,9 +101,9 @@ public class StockInDetail extends AppCompatActivity {
         if (cursor != null && (cursor.getCount() > 0)) {
             cursor.moveToFirst();
             mCompanyNameTextView.setText(cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_COMPANY_NAME)));
- 
+
             mdateTextView.setText(mToday.toString());
-            mVolumeTextView.setText("Vol: "+cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_VOLUME)));
+            mVolumeTextView.setText(cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_VOLUME)));
             mPriceTextView.setText(dollarFormat.format(cursor.getFloat(Contract.Quote.POSITION_PRICE)));
             float rawAbsoluteChange = cursor.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
             float percentageChange = cursor.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
@@ -124,6 +136,12 @@ public class StockInDetail extends AppCompatActivity {
                     }
                 }
             });
+            mAvgVolumeTextview.setText(cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_AVG_VOL)));
+            mHighTextview.setText(cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_HIGH)));
+            mLowTextview.setText(cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_LOW)));
+            mOpenTextview.setText(cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_OPEN)));
+            mPrevCloseTextview.setText(cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_PREVIOUS_CLOSE)));
+
 
             String columnHistory = cursor.getString(cursor.getColumnIndex(Contract.Quote.COLUMN_HISTORY));
             String[] millandstock = columnHistory.split("[\\r\\n]+");
@@ -137,22 +155,24 @@ public class StockInDetail extends AppCompatActivity {
             }
 
 
+            LineDataSet lds = new LineDataSet(list, mYearly);
+            lds.setDrawCircles(false);
 
-            LineDataSet lds = new LineDataSet(list, "1 year");
             LineData data = new LineData(lds);
 
 
             mLineChart.setData(data);
-            TypedArray a = getTheme().obtainStyledAttributes(R.style.AppTheme, new int[] {R.attr.background});
+            TypedArray a = getTheme().obtainStyledAttributes(R.style.AppTheme, new int[]{R.attr.background});
             int attributeResourceId = a.getResourceId(0, 0);
-          mLineChart.getXAxis().setTextColor(attributeResourceId);
+            mLineChart.getXAxis().setTextColor(attributeResourceId);
             YAxis leftAxis = mLineChart.getAxisLeft();
             leftAxis.setTextColor(ColorTemplate.getHoloBlue());
             YAxis rightAxis = mLineChart.getAxisRight();
             rightAxis.setTextColor(ColorTemplate.getHoloBlue());
-//------------ remove plot dots        ------------>>>>>>
-//------------- add chart under color.
+            Legend l = mLineChart.getLegend();
+            l.setTextColor(ColorTemplate.getHoloBlue());
             mLineChart.invalidate();
+
         } else {
 
             Timber.d("no cursor value");

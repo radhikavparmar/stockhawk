@@ -27,6 +27,11 @@ public final class Contract {
         public static final String COLUMN_HISTORY = "history";
         public static final String COLUMN_COMPANY_NAME = "company_name";
         public static final String COLUMN_VOLUME = "volume";
+        public static final String COLUMN_AVG_VOL = "avg_vol";
+        public static final String COLUMN_HIGH = "high";
+        public static final String COLUMN_LOW = "low";
+        public static final String COLUMN_OPEN = "open";
+        public static final String COLUMN_PREVIOUS_CLOSE = "previous_close";
 
         public static final int POSITION_ID = 0;
         public static final int POSITION_SYMBOL = 1;
@@ -36,6 +41,11 @@ public final class Contract {
         public static final int POSITION_HISTORY = 5;
         public static final int POSITION_COMPANY_NAME = 6;
         public static final int POSITION_VOLUME = 7;
+        public static final int POSITION_AVG_VOL = 8;
+        public static final int POSITION_HIGH = 9;
+        public static final int POSITION_LOW = 10;
+        public static final int POSITION_OPEN = 11;
+        public static final int POSITION_PREVIOUS_CLOSE = 12;
 
         public static final ImmutableList<String> QUOTE_COLUMNS = ImmutableList.of(
                 _ID,
@@ -45,7 +55,12 @@ public final class Contract {
                 COLUMN_PERCENTAGE_CHANGE,
                 COLUMN_HISTORY,
                 COLUMN_COMPANY_NAME,
-                COLUMN_VOLUME
+                COLUMN_VOLUME,
+                COLUMN_AVG_VOL,
+                COLUMN_HIGH,
+                COLUMN_LOW,
+                COLUMN_OPEN,
+                COLUMN_PREVIOUS_CLOSE
 
         );
         public static final String TABLE_NAME = "quotes";

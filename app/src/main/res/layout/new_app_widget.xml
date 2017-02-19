@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:contentDescription="@string/stock_widget"
-            android:src="@drawable/ic_star_trial" />
+            android:src="@drawable/ic_stockgraph" />
 
 
         <TextView

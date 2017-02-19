@@ -29,6 +29,11 @@ public class DbHelper extends SQLiteOpenHelper {
                 + Quote.COLUMN_HISTORY + " TEXT NOT NULL, "
                 + Quote.COLUMN_COMPANY_NAME + " TEXT NOT NULL, "
                 + Quote.COLUMN_VOLUME + " TEXT NOT NULL, "
+                + Quote.COLUMN_AVG_VOL + " TEXT NOT NULL, "
+                + Quote.COLUMN_HIGH + " TEXT NOT NULL, "
+                + Quote.COLUMN_LOW + " TEXT NOT NULL, "
+                + Quote.COLUMN_OPEN + " TEXT NOT NULL, "
+                + Quote.COLUMN_PREVIOUS_CLOSE + " TEXT NOT NULL, "
 
                 + "UNIQUE (" + Quote.COLUMN_SYMBOL + ") ON CONFLICT REPLACE);";
 
