@@ -184,8 +184,7 @@ public class StockInDetail extends AppCompatActivity {
         } else {
 
             Timber.d("no cursor value");
-            //Toast.makeText(getApplicationContext(), "No cursor value", Toast.LENGTH_LONG).show();
-        }
+              }
 //        mWeeklyButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
