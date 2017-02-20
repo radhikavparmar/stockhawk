@@ -11,7 +11,7 @@ import yahoofinance.YahooFinance;
  * Created by radhikaparmar on 10/02/17.
  */
 public class CheckExistenceOfQuote extends AsyncTask<String, Void, String> {
-
+public static final String mNetworkProblem = "Network Problem! ";
     public String doInBackground(String... symbols) {
         Stock stock = null;
 
@@ -20,9 +20,12 @@ public class CheckExistenceOfQuote extends AsyncTask<String, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String sym = stock.getName();
+        if(stock!=null) {
+            String sym = stock.getName();
 
-        return sym;
-
+            return sym;
+        }
+        else
+        {return mNetworkProblem;}
     }
 }

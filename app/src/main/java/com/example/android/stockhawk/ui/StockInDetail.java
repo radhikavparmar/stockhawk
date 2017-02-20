@@ -4,7 +4,6 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -40,8 +39,8 @@ import timber.log.Timber;
 
 public class StockInDetail extends AppCompatActivity {
     private static final String SYMBOL_EXTRA = "symbol";
-    private static final int LOADER_IDENTIFIER = 22;
     private static final String mYearly = "Yearly data";
+    private static final String BOOL_KEY = "bool_value";
     @BindView(R.id.stock_title_in_detailview)
     TextView mStockTitle;
     @BindView(R.id.price_in_detailview)
@@ -64,8 +63,6 @@ public class StockInDetail extends AppCompatActivity {
     TextView mOpenTextview;
     @BindView(R.id.prev_close_in_detailview)
     TextView mPrevCloseTextview;
-    //    @BindView(R.id.weekly_button)
-//    Button mWeeklyButton;
     @BindView(R.id.stock_chart)
     LineChart mLineChart;
     private Bundle extras;
@@ -79,7 +76,7 @@ public class StockInDetail extends AppCompatActivity {
     private Date mToday;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stock_in_detail);
         ButterKnife.bind(this);
@@ -123,6 +120,17 @@ public class StockInDetail extends AppCompatActivity {
             } else {
                 mChangeTextView.setText(percentage);
                 mToggle = false;
+            }
+            if (savedInstanceState != null) {
+                mToggle = savedInstanceState.getBoolean(BOOL_KEY, mToggle);
+
+                if (mToggle == false) {
+                    mChangeTextView.setText(percentage);
+
+                } else {
+                    mChangeTextView.setText(change);
+
+                }
             }
             mChangeTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -223,4 +231,13 @@ public class StockInDetail extends AppCompatActivity {
                 null
         );
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // Save the values you need into "outState"
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(BOOL_KEY, mToggle);
+    }
+
+
 }

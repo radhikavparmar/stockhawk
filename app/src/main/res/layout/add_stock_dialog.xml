@@ -17,4 +17,6 @@
         android:hint="@string/dialog_hint"
         android:inputType="textCapCharacters" />
 
+
+
 </LinearLayout>

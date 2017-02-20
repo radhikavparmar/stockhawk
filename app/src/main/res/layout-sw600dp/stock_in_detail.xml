@@ -7,7 +7,9 @@
     android:paddingLeft="16dp"
     android:paddingStart="16dp"
     android:paddingRight="16dp"
-    android:paddingEnd="16dp">
+    android:paddingEnd="16dp"
+    >
+
     <TextView
         android:textStyle="bold"
         android:id="@+id/companyname_in_detailview"
@@ -22,7 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
-        tools:text="2017/02/11 GMT +4 12341234" />
+        tools:text="2017/02/11 GMT +4 12341234"
+        android:textSize="17sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +34,7 @@
 
         <TextView
             android:id="@+id/stock_title_in_detailview"
-            style="@style/StockSymbolTextStyle"
+            style="@style/StockSymbolTextStyleTablet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
@@ -47,7 +50,7 @@
 
             <TextView
                 android:id="@+id/price_in_detailview"
-                style="@style/BidPriceTextStyle"
+                style="@style/BidPriceTextStyleTablet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10sp"
@@ -56,7 +59,7 @@
 
             <TextView
                 android:id="@+id/change_in_detailview"
-                style="@style/PercentChangeTextStyle"
+                style="@style/PercentChangeTextStyleTablet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/percent_change_pill_green"
@@ -80,11 +83,13 @@
 
             <TextView
                 android:textStyle="bold"
+                android:textSize="17sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prev_close" />
 
             <TextView
+                android:textSize="17sp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="end"
@@ -98,12 +103,14 @@
         <TableRow>
 
             <TextView
+                android:textSize="17sp"
                 android:id="@+id/prev_close_in_detailview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="$123" />
 
             <TextView
+                android:textSize="17sp"
                 android:gravity="end"
                 android:id="@+id/high_in_detailview"
                 android:layout_width="0dp"
@@ -114,12 +121,14 @@
         <TableRow>
 
             <TextView
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/open" />
 
             <TextView
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:gravity="end"
                 android:layout_width="0dp"
@@ -131,12 +140,14 @@
         <TableRow>
 
             <TextView
+                android:textSize="17sp"
                 android:id="@+id/open_in_detailview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="$123" />
 
             <TextView
+                android:textSize="17sp"
                 android:gravity="end"
                 android:id="@+id/low_in_detailview"
                 android:layout_width="0dp"
@@ -147,12 +158,14 @@
         <TableRow>
 
             <TextView
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/weekly_avg_vol" />
 
             <TextView
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:gravity="end"
                 android:layout_width="0dp"
@@ -164,12 +177,14 @@
         <TableRow>
 
             <TextView
+                android:textSize="17sp"
                 android:id="@+id/avg_vol_in_detailview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="123000" />
 
             <TextView
+                android:textSize="17sp"
                 android:gravity="end"
                 android:id="@+id/vol_in_detailview"
                 android:layout_width="0dp"
@@ -183,7 +198,8 @@
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/stock_chart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:textSize="17sp"/>
 
     <!--<GridLayout-->
     <!--android:layout_width="wrap_content"-->

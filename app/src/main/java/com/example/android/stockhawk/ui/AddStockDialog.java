@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 
 
 public class AddStockDialog extends DialogFragment {
+    public static final String mNetworkProblem = "Network Problem! ";
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.dialog_stock)
@@ -112,8 +113,10 @@ public class AddStockDialog extends DialogFragment {
         builder.setPositiveButton(getString(R.string.dialog_add),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+
                         if (!networkUp()) {
                             Toast.makeText(getActivity(), "No internet connectivity.", Toast.LENGTH_SHORT).show();
+
                         } else {
                             String results = null;
                             String quoteEdittext = stock.getText().toString();
@@ -130,9 +133,16 @@ public class AddStockDialog extends DialogFragment {
                             }
                             if (results == null) {
                                 Toast.makeText(getActivity(), "Invalid input.", Toast.LENGTH_SHORT).show();
-                            } else {
+
+                            }
+                            else if(results.compareTo(mNetworkProblem)==0){
+                                Toast.makeText(getActivity(), mNetworkProblem, Toast.LENGTH_SHORT).show();
+
+                            }
+                            else {
 
                                 addStock();
+
                             }
                         }
                     }

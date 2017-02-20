@@ -65,91 +65,91 @@ public final class QuoteSyncJob {
             }
 
             Map<String, Stock> quotes = YahooFinance.get(stockArray);
+            if(quotes==null){return;}else {
+                Iterator<String> iterator = stockCopy.iterator();
 
-            Iterator<String> iterator = stockCopy.iterator();
+                Timber.d(quotes.toString());
 
-            Timber.d(quotes.toString());
+                ArrayList<ContentValues> quoteCVs = new ArrayList<>();
 
-            ArrayList<ContentValues> quoteCVs = new ArrayList<>();
-
-            while (iterator.hasNext()) {
-                String symbol = iterator.next();
-
-
-                Stock stock = quotes.get(symbol);
-                StockQuote quote = stock.getQuote();
+                while (iterator.hasNext()) {
+                    String symbol = iterator.next();
 
 
-                String companyName = stock.getName();
-                String volume = quote.getVolume().toString();
-                String avgVol = quote.getAvgVolume().toString();
-                String open, low, high;
-                //BigDecimal d= quote.getDayHigh();
-                if (quote.getOpen() != null) {
-                    open = quote.getOpen().toString();
-                } else {
-                    open = mMarketClose;
+                    Stock stock = quotes.get(symbol);
+                    StockQuote quote = stock.getQuote();
+
+
+                    String companyName = stock.getName();
+                    String volume = quote.getVolume().toString();
+                    String avgVol = quote.getAvgVolume().toString();
+                    String open, low, high;
+                    //BigDecimal d= quote.getDayHigh();
+                    if (quote.getOpen() != null) {
+                        open = quote.getOpen().toString();
+                    } else {
+                        open = mMarketClose;
+                    }
+                    if (quote.getDayLow() != null) {
+                        low = quote.getDayLow().toString();
+                    } else {
+                        low = mMarketClose;
+                    }
+                    if (quote.getDayHigh() != null) {
+                        high = quote.getDayHigh().toString();
+                    } else {
+                        high = mMarketClose;
+                    }
+                    //String high = quote.getDayHigh().toString();
+                    //String low = quote.getDayLow().toString();
+                    //String high = "123";
+                    //String low = "321";
+                    //String open = "122";
+                    //
+                    String preClose = quote.getPreviousClose().toString();
+
+
+                    float price = quote.getPrice().floatValue();
+                    float change = quote.getChange().floatValue();
+                    float percentChange = quote.getChangeInPercent().floatValue();
+
+                    // WARNING! Don't request historical data for a stock that doesn't exist!
+                    // The request will hang forever X_x
+                    List<HistoricalQuote> history = stock.getHistory(from, to, Interval.DAILY);
+
+                    StringBuilder historyBuilder = new StringBuilder();
+
+                    for (HistoricalQuote it : history) {
+                        historyBuilder.append(it.getDate().getTimeInMillis());
+                        historyBuilder.append(", ");
+                        historyBuilder.append(it.getClose());
+                        historyBuilder.append("\n");
+                    }
+
+                    ContentValues quoteCV = new ContentValues();
+                    quoteCV.put(Contract.Quote.COLUMN_SYMBOL, symbol);
+                    quoteCV.put(Contract.Quote.COLUMN_PRICE, price);
+                    quoteCV.put(Contract.Quote.COLUMN_PERCENTAGE_CHANGE, percentChange);
+                    quoteCV.put(Contract.Quote.COLUMN_ABSOLUTE_CHANGE, change);
+
+
+                    quoteCV.put(Contract.Quote.COLUMN_HISTORY, historyBuilder.toString());
+                    quoteCV.put(Contract.Quote.COLUMN_COMPANY_NAME, companyName);
+                    quoteCV.put(Contract.Quote.COLUMN_VOLUME, volume);
+                    quoteCV.put(Contract.Quote.COLUMN_AVG_VOL, avgVol);
+                    quoteCV.put(Contract.Quote.COLUMN_HIGH, high);
+                    quoteCV.put(Contract.Quote.COLUMN_LOW, low);
+                    quoteCV.put(Contract.Quote.COLUMN_OPEN, open);
+                    quoteCV.put(Contract.Quote.COLUMN_PREVIOUS_CLOSE, preClose);
+                    quoteCVs.add(quoteCV);
+
                 }
-                if (quote.getDayLow() != null) {
-                    low = quote.getDayLow().toString();
-                } else {
-                    low = mMarketClose;
-                }
-                if (quote.getDayHigh() != null) {
-                    high = quote.getDayHigh().toString();
-                } else {
-                    high = mMarketClose;
-                }
-                //String high = quote.getDayHigh().toString();
-                //String low = quote.getDayLow().toString();
-                //String high = "123";
-                //String low = "321";
-                //String open = "122";
-                //
-                String preClose = quote.getPreviousClose().toString();
 
-
-                float price = quote.getPrice().floatValue();
-                float change = quote.getChange().floatValue();
-                float percentChange = quote.getChangeInPercent().floatValue();
-
-                // WARNING! Don't request historical data for a stock that doesn't exist!
-                // The request will hang forever X_x
-                List<HistoricalQuote> history = stock.getHistory(from, to, Interval.DAILY);
-
-                StringBuilder historyBuilder = new StringBuilder();
-
-                for (HistoricalQuote it : history) {
-                    historyBuilder.append(it.getDate().getTimeInMillis());
-                    historyBuilder.append(", ");
-                    historyBuilder.append(it.getClose());
-                    historyBuilder.append("\n");
-                }
-
-                ContentValues quoteCV = new ContentValues();
-                quoteCV.put(Contract.Quote.COLUMN_SYMBOL, symbol);
-                quoteCV.put(Contract.Quote.COLUMN_PRICE, price);
-                quoteCV.put(Contract.Quote.COLUMN_PERCENTAGE_CHANGE, percentChange);
-                quoteCV.put(Contract.Quote.COLUMN_ABSOLUTE_CHANGE, change);
-
-
-                quoteCV.put(Contract.Quote.COLUMN_HISTORY, historyBuilder.toString());
-                quoteCV.put(Contract.Quote.COLUMN_COMPANY_NAME, companyName);
-                quoteCV.put(Contract.Quote.COLUMN_VOLUME, volume);
-                quoteCV.put(Contract.Quote.COLUMN_AVG_VOL, avgVol);
-                quoteCV.put(Contract.Quote.COLUMN_HIGH, high);
-                quoteCV.put(Contract.Quote.COLUMN_LOW, low);
-                quoteCV.put(Contract.Quote.COLUMN_OPEN, open);
-                quoteCV.put(Contract.Quote.COLUMN_PREVIOUS_CLOSE, preClose);
-                quoteCVs.add(quoteCV);
-
+                context.getContentResolver()
+                        .bulkInsert(
+                                Contract.Quote.URI,
+                                quoteCVs.toArray(new ContentValues[quoteCVs.size()]));
             }
-
-            context.getContentResolver()
-                    .bulkInsert(
-                            Contract.Quote.URI,
-                            quoteCVs.toArray(new ContentValues[quoteCVs.size()]));
-
 //                Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED).setPackage(context.getPackageName());;
 //                context.sendBroadcast(dataUpdatedIntent);
 

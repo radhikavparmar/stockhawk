@@ -220,4 +220,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Parcelable listState = stockRecyclerView.getLayoutManager().onSaveInstanceState();
         mBundleRecyclerViewState.putParcelable(KEY_RECYCLER_STATE, listState);
     }
+
 }

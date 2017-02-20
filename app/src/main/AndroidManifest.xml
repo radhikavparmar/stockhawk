@@ -30,7 +30,7 @@
 
         <provider
             android:name=".data.StockProvider"
-            android:authorities="com.udacity.stockhawk"
+            android:authorities="com.example.android.stockhawk"
             android:exported="false" />
 
         <service
